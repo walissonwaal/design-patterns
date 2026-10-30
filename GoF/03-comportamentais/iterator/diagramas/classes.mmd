@@ -1,0 +1,32 @@
+classDiagram
+  class Iterable {
+    <<interface>>
+    +createIterator() Iterator
+  }
+  class Iterator {
+    <<interface>>
+    +next() IteratorResult
+  }
+  class Playlist {
+    -Song[] songs
+    +add(song) void
+    +createIterator() Iterator
+    +reversed() Iterable
+  }
+  class ForwardIterator {
+    -number position
+    +next() IteratorResult
+  }
+  class ReverseIterator {
+    -number position
+    +next() IteratorResult
+  }
+  class Client
+  Iterable <|.. Playlist
+  Iterator <|.. ForwardIterator
+  Iterator <|.. ReverseIterator
+  Playlist ..> ForwardIterator : cria
+  Playlist ..> ReverseIterator : cria
+  Client --> Iterable
+  Client --> Iterator
+  note for Iterable "Em JS/TS esse método se chama Symbol.iterator"

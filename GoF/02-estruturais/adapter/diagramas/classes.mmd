@@ -1,0 +1,17 @@
+classDiagram
+  class Client
+  class Target {
+    <<interface>>
+    +request(dados) resultado
+  }
+  class Adapter {
+    -Adaptee adaptee
+    +request(dados) resultado
+  }
+  class Adaptee {
+    +specificRequest(dadosIncompativeis) resultadoIncompativel
+  }
+  Client --> Target
+  Target <|.. Adapter
+  Adapter --> Adaptee : delega (composição)
+  note for Adapter "Converte a chamada do formato do Target<br/>para o formato do Adaptee e vice-versa"

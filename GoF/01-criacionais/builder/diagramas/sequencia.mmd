@@ -1,0 +1,14 @@
+sequenceDiagram
+  participant C as Cliente
+  participant D as QueryDirector
+  participant B as SqlQueryBuilder
+  C->>B: new SqlQueryBuilder()
+  C->>D: activeUsers(builder)
+  D->>B: reset()
+  D->>B: from("users")
+  D->>B: select("name", "email")
+  D->>B: where("active", "=", 1)
+  D->>B: limit(10)
+  D->>B: build()
+  B-->>D: "SELECT ... LIMIT 10"
+  D-->>C: produto final

@@ -1,0 +1,17 @@
+sequenceDiagram
+  participant C as Cliente
+  participant Z as CompressionDecorator
+  participant E as EncryptionDecorator
+  participant M as MemoryDataSource
+  Note over C,M: source = Compression(Encryption(Memory))
+  C->>Z: writeData("texto")
+  Z->>Z: comprime (gzip + base64)
+  Z->>E: writeData(comprimido)
+  E->>E: criptografa (AES-256-GCM)
+  E->>M: writeData(criptografado)
+  C->>Z: readData()
+  Z->>E: readData()
+  E->>M: readData()
+  M-->>E: criptografado
+  E-->>Z: descriptografa e devolve
+  Z-->>C: descomprime e devolve "texto"

@@ -1,0 +1,16 @@
+sequenceDiagram
+  participant C as Cliente
+  participant H as CommandHistory (invoker)
+  participant K as AppendCommand
+  participant E as Editor (receiver)
+  C->>K: new AppendCommand(editor, "Olá")
+  C->>H: run(comando)
+  H->>K: execute()
+  K->>E: text += "Olá"
+  H->>H: empilha no histórico
+  C->>H: undo()
+  H->>K: undo()
+  K->>E: remove "Olá"
+  C->>H: redo()
+  H->>K: execute()
+  K->>E: text += "Olá"

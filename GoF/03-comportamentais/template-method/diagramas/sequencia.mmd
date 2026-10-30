@@ -1,0 +1,11 @@
+sequenceDiagram
+  participant C as Cliente
+  participant J as JsonImporter
+  C->>J: import(raw)
+  Note over J: método da superclasse DataImporter
+  J->>J: parse(raw) (passo abstrato, implementado em JsonImporter)
+  J->>J: validate(rows) (hook sobrescrito)
+  J->>J: save(rows) (passo comum, da superclasse)
+  J->>J: onFinish(report) (hook sobrescrito)
+  J-->>C: Report
+  Note over C,J: A ORDEM dos passos é fixa. Só os detalhes variam.

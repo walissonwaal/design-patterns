@@ -1,0 +1,28 @@
+classDiagram
+  class Handler {
+    <<interface>>
+    +setNext(h: Handler) Handler
+    +handle(request) Result
+  }
+  class BaseHandler {
+    <<abstract>>
+    -Handler next
+    +setNext(h: Handler) Handler
+    +handle(request) Result
+  }
+  class RateLimitHandler {
+    +handle(request) Result
+  }
+  class AuthenticationHandler {
+    +handle(request) Result
+  }
+  class AuthorizationHandler {
+    +handle(request) Result
+  }
+  class Client
+  Handler <|.. BaseHandler
+  BaseHandler <|-- RateLimitHandler
+  BaseHandler <|-- AuthenticationHandler
+  BaseHandler <|-- AuthorizationHandler
+  BaseHandler o--> Handler : next (próximo elo)
+  Client --> Handler

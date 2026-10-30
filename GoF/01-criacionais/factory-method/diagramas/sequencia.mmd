@@ -1,0 +1,11 @@
+sequenceDiagram
+  participant C as Cliente
+  participant L as RoadLogistics (Creator)
+  participant T as Truck (Product)
+  C->>L: planDelivery("cargo")
+  L->>L: createTransport() (factory method)
+  L->>T: new Truck()
+  T-->>L: caminhão
+  L->>T: deliver("cargo")
+  T-->>L: "Entrega por terra..."
+  L-->>C: resultado

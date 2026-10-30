@@ -1,0 +1,22 @@
+sequenceDiagram
+  participant C as Cliente
+  participant P as ProtectionProxy
+  participant K as CachingProxy
+  participant R as RealUserRepository
+  C->>P: findById(1)
+  P->>P: viewer tem permissão?
+  alt sem permissão
+    P-->>C: erro "acesso negado"
+  else com permissão
+    P->>K: findById(1)
+    alt está no cache
+      K-->>P: usuário em cache
+    else não está no cache
+      K->>R: findById(1)
+      Note right of R: consulta cara ao banco
+      R-->>K: usuário
+      K->>K: guarda no cache
+      K-->>P: usuário
+    end
+    P-->>C: usuário
+  end

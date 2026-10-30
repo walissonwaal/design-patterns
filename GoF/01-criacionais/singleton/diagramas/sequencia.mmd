@@ -1,0 +1,10 @@
+sequenceDiagram
+  participant A as ClienteA
+  participant B as ClienteB
+  participant S as Singleton
+  A->>S: getInstance()
+  Note right of S: instance é nula, então cria
+  S-->>A: instância #1
+  B->>S: getInstance()
+  Note right of S: instance já existe
+  S-->>B: a mesma instância #1

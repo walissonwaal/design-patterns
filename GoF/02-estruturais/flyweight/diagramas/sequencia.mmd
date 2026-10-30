@@ -1,0 +1,16 @@
+sequenceDiagram
+  participant C as Cliente
+  participant F as Forest
+  participant Fa as TreeTypeFactory
+  participant T as TreeType
+  C->>F: plantTree(1, 2, "Carvalho", "verde", textura)
+  F->>Fa: getTreeType("Carvalho", "verde", textura)
+  Note right of Fa: não existe no cache
+  Fa->>T: new TreeType(...)
+  Fa-->>F: TreeType #1
+  F->>F: guarda Tree(1, 2, TreeType #1)
+  C->>F: plantTree(8, 5, "Carvalho", "verde", textura)
+  F->>Fa: getTreeType("Carvalho", "verde", textura)
+  Note right of Fa: já existe no cache
+  Fa-->>F: o MESMO TreeType #1
+  F->>F: guarda Tree(8, 5, TreeType #1)

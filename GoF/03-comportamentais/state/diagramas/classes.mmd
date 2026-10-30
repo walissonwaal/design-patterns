@@ -1,0 +1,29 @@
+classDiagram
+  class Document {
+    -State state
+    -string content
+    +transitionTo(s: State) void
+    +edit(text) void
+    +submit() void
+    +approve() void
+    +reject() void
+  }
+  class State {
+    <<interface>>
+    +edit(doc, text) void
+    +submit(doc) void
+    +approve(doc) void
+    +reject(doc) void
+  }
+  class DraftState
+  class ModerationState
+  class PublishedState
+  Document o--> State : estado atual
+  State <|.. DraftState
+  State <|.. ModerationState
+  State <|.. PublishedState
+  DraftState ..> ModerationState : submit
+  ModerationState ..> PublishedState : approve
+  ModerationState ..> DraftState : reject
+  PublishedState ..> DraftState : reject
+  note for Document "CONTEXT: delega cada operação<br/>ao objeto de estado atual"

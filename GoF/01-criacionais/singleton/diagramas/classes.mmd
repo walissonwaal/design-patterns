@@ -1,0 +1,13 @@
+classDiagram
+  direction LR
+  class Singleton {
+    -Singleton instance$
+    -Singleton()
+    +getInstance()$ Singleton
+    +operacao() void
+  }
+  class ClienteA
+  class ClienteB
+  ClienteA ..> Singleton : getInstance()
+  ClienteB ..> Singleton : getInstance()
+  Singleton --> Singleton : guarda a única instância

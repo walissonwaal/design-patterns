@@ -1,0 +1,16 @@
+sequenceDiagram
+  participant C as Cliente
+  participant R as AdvancedRemoteControl
+  participant D as Radio (Device)
+  C->>R: new AdvancedRemoteControl(radio)
+  C->>R: togglePower()
+  R->>D: isEnabled()
+  D-->>R: false
+  R->>D: enable()
+  C->>R: volumeUp()
+  R->>D: getVolume()
+  D-->>R: 30
+  R->>D: setVolume(40)
+  C->>R: mute()
+  R->>D: setVolume(0)
+  Note over R,D: A abstração apenas delega, então qualquer Device funciona

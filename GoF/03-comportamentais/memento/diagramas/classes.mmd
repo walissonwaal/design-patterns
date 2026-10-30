@@ -1,0 +1,31 @@
+classDiagram
+  class Editor {
+    -string content
+    -number cursor
+    +type(text) void
+    +moveCursor(position) void
+    +save() Memento
+    +restore(m: Memento) void
+  }
+  class Memento {
+    <<interface>>
+    +string label
+    +Date date
+  }
+  class EditorSnapshot {
+    -string content
+    -number cursor
+    +getState() EditorState
+  }
+  class History {
+    -Memento[] snapshots
+    +backup() void
+    +undo() void
+    +list() void
+  }
+  Editor ..> EditorSnapshot : cria
+  Memento <|.. EditorSnapshot
+  History o--> "*" Memento : guarda
+  History --> Editor : originator
+  note for Editor "ORIGINATOR: cria e restaura snapshots do próprio estado"
+  note for History "CARETAKER: guarda os mementos<br/>mas não lê seu conteúdo"

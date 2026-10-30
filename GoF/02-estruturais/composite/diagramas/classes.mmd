@@ -1,0 +1,24 @@
+classDiagram
+  class Component {
+    <<interface>>
+    +getSize() number
+    +print(indent) void
+  }
+  class Leaf {
+    +getSize() number
+    +print(indent) void
+  }
+  class Composite {
+    -Component[] children
+    +add(c: Component) void
+    +remove(c: Component) void
+    +getSize() number
+    +print(indent) void
+  }
+  class Client
+  Component <|.. Leaf
+  Component <|.. Composite
+  Composite o--> "0..*" Component : filhos
+  Client --> Component
+  note for Leaf "File (arquivo)"
+  note for Composite "Directory (pasta)<br/>delega aos filhos e agrega o resultado"

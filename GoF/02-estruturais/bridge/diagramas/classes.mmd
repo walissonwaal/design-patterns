@@ -1,0 +1,29 @@
+classDiagram
+  class RemoteControl {
+    #Device device
+    +togglePower() void
+    +volumeUp() void
+    +volumeDown() void
+    +channelUp() void
+  }
+  class AdvancedRemoteControl {
+    +mute() void
+  }
+  class Device {
+    <<interface>>
+    +isEnabled() boolean
+    +enable() void
+    +disable() void
+    +getVolume() number
+    +setVolume(percent) void
+    +getChannel() number
+    +setChannel(channel) void
+  }
+  class Tv
+  class Radio
+  RemoteControl <|-- AdvancedRemoteControl
+  RemoteControl o--> Device : ponte (bridge)
+  Device <|.. Tv
+  Device <|.. Radio
+  note for RemoteControl "ABSTRAÇÃO<br/>(o que o usuário controla)"
+  note for Device "IMPLEMENTAÇÃO<br/>(o que realmente faz o trabalho)"

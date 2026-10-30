@@ -1,0 +1,12 @@
+stateDiagram-v2
+  state "Moderação" as Moderacao
+  [*] --> Rascunho
+  Rascunho --> Moderacao : submit()
+  Moderacao --> Publicado : approve()
+  Moderacao --> Rascunho : reject()
+  Publicado --> Rascunho : reject() - despublica
+  Rascunho --> Rascunho : edit()
+  note right of Moderacao
+    edit() é proibido
+    nesse estado
+  end note

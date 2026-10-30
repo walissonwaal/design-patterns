@@ -1,0 +1,17 @@
+sequenceDiagram
+  participant C as Cliente
+  participant G as Group
+  participant Ci as Circle
+  participant R as Rectangle
+  participant V as AreaVisitor
+  C->>G: accept(areaVisitor)
+  G->>V: visitGroup(this)
+  V->>Ci: accept(this)
+  Ci->>V: visitCircle(this)
+  V-->>Ci: área do círculo
+  V->>R: accept(this)
+  R->>V: visitRectangle(this)
+  V-->>R: área do retângulo
+  V-->>G: soma das áreas
+  G-->>C: área total
+  Note over C,V: Double dispatch: o método executado depende do tipo do elemento E do tipo do visitor

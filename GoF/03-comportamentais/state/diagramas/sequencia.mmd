@@ -1,0 +1,16 @@
+sequenceDiagram
+  participant C as Cliente
+  participant D as Document (context)
+  participant R as DraftState
+  participant M as ModerationState
+  Note over D: estado atual = DraftState
+  C->>D: submit()
+  D->>R: submit(doc)
+  R->>D: transitionTo(new ModerationState())
+  Note over D: estado atual = ModerationState
+  C->>D: edit("novo texto")
+  D->>M: edit(doc, "novo texto")
+  M-->>C: ❌ proibido durante a moderação
+  C->>D: approve()
+  D->>M: approve(doc)
+  M->>D: transitionTo(new PublishedState())

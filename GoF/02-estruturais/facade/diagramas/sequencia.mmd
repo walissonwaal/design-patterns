@@ -1,0 +1,22 @@
+sequenceDiagram
+  participant C as Cliente
+  participant F as OrderFacade
+  participant I as InventoryService
+  participant P as PaymentService
+  participant S as ShippingService
+  participant N as NotificationService
+  C->>F: placeOrder(pedido)
+  F->>I: reserve(sku, qty)
+  I-->>F: true
+  F->>P: charge(cliente, total)
+  alt pagamento aprovado
+    P-->>F: true
+    F->>S: schedule(endereço, sku)
+    S-->>F: código de rastreio
+    F->>N: sendEmail(cliente, confirmação)
+    F-->>C: sucesso + rastreio
+  else pagamento recusado
+    P-->>F: false
+    F->>I: release(sku, qty)
+    F-->>C: falha (estoque devolvido)
+  end

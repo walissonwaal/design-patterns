@@ -1,0 +1,18 @@
+{
+  "name": "gof-design-patterns-typescript",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Os 23 padrões de projeto GoF explicados em pt-BR, com diagramas e exemplos em TypeScript",
+  "scripts": {
+    "exemplo": "tsx",
+    "typecheck": "tsc --noEmit",
+    "executar:todos": "bash scripts/executar-todos.sh",
+    "diagramas": "bash scripts/gerar-diagramas.sh"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

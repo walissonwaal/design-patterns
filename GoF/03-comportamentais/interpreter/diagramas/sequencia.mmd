@@ -1,0 +1,18 @@
+sequenceDiagram
+  participant C as Cliente
+  participant M as Multiply
+  participant A as Add
+  participant X as Variable x
+  participant N as Number 5
+  participant Y as Variable y
+  Note over C,Y: Expressão "5 x + y *" equivale a (5 + x) * y com x = 3 e y = 2
+  C->>M: interpret(ctx)
+  M->>A: interpret(ctx)
+  A->>N: interpret(ctx)
+  N-->>A: 5
+  A->>X: interpret(ctx)
+  X-->>A: 3 (lido do contexto)
+  A-->>M: 8
+  M->>Y: interpret(ctx)
+  Y-->>M: 2 (lido do contexto)
+  M-->>C: 16

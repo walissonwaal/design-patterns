@@ -1,0 +1,14 @@
+sequenceDiagram
+  participant App as Application
+  participant F as MacFactory
+  participant B as MacButton
+  participant C as MacCheckbox
+  App->>F: createButton()
+  F->>B: new MacButton()
+  F-->>App: Button
+  App->>F: createCheckbox()
+  F->>C: new MacCheckbox()
+  F-->>App: Checkbox
+  Note over App,C: A aplicação só conhece as interfaces.<br/>Todos os widgets são da mesma família (macOS).
+  App->>B: render()
+  App->>C: render()

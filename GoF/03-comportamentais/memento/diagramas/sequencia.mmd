@@ -1,0 +1,18 @@
+sequenceDiagram
+  participant C as Cliente
+  participant H as History (caretaker)
+  participant E as Editor (originator)
+  participant M as EditorSnapshot (memento)
+  C->>H: backup()
+  H->>E: save()
+  E->>M: new EditorSnapshot(content, cursor)
+  E-->>H: memento
+  H->>H: empilha o memento
+  C->>E: type("mais texto")
+  Note over E: o estado mudou
+  C->>H: undo()
+  H->>H: desempilha o último memento
+  H->>E: restore(memento)
+  E->>M: getState()
+  M-->>E: content e cursor salvos
+  Note over E: estado anterior recuperado

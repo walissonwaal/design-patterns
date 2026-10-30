@@ -1,0 +1,32 @@
+classDiagram
+  class UserRepository {
+    <<interface>>
+    +findById(id) User
+  }
+  class RealUserRepository {
+    +findById(id) User
+  }
+  class CachingProxy {
+    -UserRepository target
+    -Map cache
+    +findById(id) User
+  }
+  class ProtectionProxy {
+    -UserRepository target
+    -Viewer viewer
+    +findById(id) User
+  }
+  class LazyProxy {
+    -UserRepository target
+    -factory() UserRepository
+    +findById(id) User
+  }
+  class Client
+  UserRepository <|.. RealUserRepository
+  UserRepository <|.. CachingProxy
+  UserRepository <|.. ProtectionProxy
+  UserRepository <|.. LazyProxy
+  CachingProxy --> UserRepository : delega
+  ProtectionProxy --> UserRepository : delega
+  LazyProxy --> UserRepository : delega
+  Client --> UserRepository

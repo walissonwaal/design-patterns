@@ -1,0 +1,44 @@
+classDiagram
+  class Context {
+    -Map~string, number~ variables
+    +set(name, value) void
+    +get(name) number
+  }
+  class Expression {
+    <<interface>>
+    +interpret(ctx: Context) number
+  }
+  class NumberExpression {
+    -number value
+    +interpret(ctx: Context) number
+  }
+  class VariableExpression {
+    -string name
+    +interpret(ctx: Context) number
+  }
+  class BinaryExpression {
+    <<abstract>>
+    #Expression left
+    #Expression right
+  }
+  class AddExpression {
+    +interpret(ctx: Context) number
+  }
+  class SubtractExpression {
+    +interpret(ctx: Context) number
+  }
+  class MultiplyExpression {
+    +interpret(ctx: Context) number
+  }
+  class Client
+  Expression <|.. NumberExpression
+  Expression <|.. VariableExpression
+  Expression <|.. BinaryExpression
+  BinaryExpression <|-- AddExpression
+  BinaryExpression <|-- SubtractExpression
+  BinaryExpression <|-- MultiplyExpression
+  BinaryExpression o--> Expression : left e right
+  Client ..> Context
+  Client ..> Expression : monta a árvore sintática
+  note for NumberExpression "TERMINAL"
+  note for BinaryExpression "NÃO TERMINAL"

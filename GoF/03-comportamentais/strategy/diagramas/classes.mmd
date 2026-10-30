@@ -1,0 +1,27 @@
+classDiagram
+  class Checkout {
+    -ShippingStrategy strategy
+    +setStrategy(s: ShippingStrategy) void
+    +total(order: Order) number
+  }
+  class ShippingStrategy {
+    <<interface>>
+    +calculate(order: Order) number
+  }
+  class StandardShipping {
+    +calculate(order: Order) number
+  }
+  class ExpressShipping {
+    +calculate(order: Order) number
+  }
+  class PickupShipping {
+    +calculate(order: Order) number
+  }
+  class Client
+  Checkout o--> ShippingStrategy : usa
+  ShippingStrategy <|.. StandardShipping
+  ShippingStrategy <|.. ExpressShipping
+  ShippingStrategy <|.. PickupShipping
+  Client ..> Checkout
+  Client ..> ShippingStrategy : escolhe a estratégia
+  note for Checkout "CONTEXT: não sabe como o frete é calculado"

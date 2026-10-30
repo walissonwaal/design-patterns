@@ -1,0 +1,23 @@
+classDiagram
+  class ChatMediator {
+    <<interface>>
+    +register(user: User) void
+    +send(from: User, message, to?) void
+  }
+  class ChatRoom {
+    -Map~string, User~ users
+    -Set~string~ muted
+    +register(user: User) void
+    +mute(name) void
+    +send(from: User, message, to?) void
+  }
+  class User {
+    +string name
+    -ChatMediator mediator
+    +send(message, to?) void
+    +receive(from, message) void
+  }
+  ChatMediator <|.. ChatRoom
+  ChatRoom o--> "*" User : conhece todos
+  User --> ChatMediator : só conhece o mediador
+  note for ChatRoom "Concentra as regras de comunicação<br/>(broadcast, privado, silenciados)"

@@ -1,0 +1,32 @@
+classDiagram
+  class Observer {
+    <<interface>>
+    +update(event) void
+  }
+  class Subject {
+    -Set~Observer~ observers
+    +subscribe(o: Observer) Unsubscribe
+    +unsubscribe(o: Observer) void
+    #notify(event) void
+  }
+  class Stock {
+    -number price
+    +setPrice(value) void
+  }
+  class PriceDisplay {
+    +update(event) void
+  }
+  class PriceAlert {
+    -number threshold
+    +update(event) void
+  }
+  class PriceHistory {
+    -number[] prices
+    +update(event) void
+  }
+  Subject <|-- Stock
+  Observer <|.. PriceDisplay
+  Observer <|.. PriceAlert
+  Observer <|.. PriceHistory
+  Subject o--> "*" Observer : assinantes
+  note for Stock "PUBLISHER concreto<br/>notifica ao mudar de estado"

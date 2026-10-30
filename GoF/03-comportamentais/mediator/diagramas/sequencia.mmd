@@ -1,0 +1,12 @@
+sequenceDiagram
+  participant A as User Ana
+  participant R as ChatRoom (mediador)
+  participant B as User Beto
+  participant C as User Caio
+  A->>R: send(Ana, "Oi, pessoal!")
+  R->>R: aplica regras (silenciada? destinatário existe?)
+  R->>B: receive(Ana, "Oi, pessoal!")
+  R->>C: receive(Ana, "Oi, pessoal!")
+  B->>R: send(Beto, "Só para a Ana", to Ana)
+  R->>A: receive(Beto, "Só para a Ana")
+  Note over A,C: Os usuários nunca se referenciam diretamente

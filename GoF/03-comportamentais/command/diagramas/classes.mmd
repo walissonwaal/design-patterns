@@ -1,0 +1,38 @@
+classDiagram
+  class Command {
+    <<interface>>
+    +execute() void
+    +undo() void
+  }
+  class AppendCommand {
+    -Editor editor
+    -string text
+    +execute() void
+    +undo() void
+  }
+  class UppercaseCommand {
+    -Editor editor
+    -string backup
+    +execute() void
+    +undo() void
+  }
+  class Editor {
+    +string text
+  }
+  class CommandHistory {
+    -Command[] done
+    -Command[] undone
+    +run(c: Command) void
+    +undo() void
+    +redo() void
+  }
+  class Client
+  Command <|.. AppendCommand
+  Command <|.. UppercaseCommand
+  AppendCommand --> Editor : receiver
+  UppercaseCommand --> Editor : receiver
+  CommandHistory o--> Command
+  Client ..> CommandHistory : invoker
+  Client ..> Command : cria
+  note for CommandHistory "INVOKER: dispara comandos<br/>sem saber o que eles fazem"
+  note for Editor "RECEIVER: quem realmente<br/>executa o trabalho"

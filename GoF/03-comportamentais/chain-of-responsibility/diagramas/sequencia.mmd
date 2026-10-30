@@ -1,0 +1,15 @@
+sequenceDiagram
+  participant C as Cliente
+  participant R as RateLimitHandler
+  participant A as AuthenticationHandler
+  participant Z as AuthorizationHandler
+  C->>R: handle(request)
+  R->>R: dentro do limite? sim
+  R->>A: handle(request)
+  A->>A: credenciais válidas? sim
+  A->>Z: handle(request)
+  Z->>Z: tem permissão? não
+  Z-->>A: rejeitado "acesso negado"
+  A-->>R: rejeitado "acesso negado"
+  R-->>C: rejeitado "acesso negado"
+  Note over C,Z: Qualquer elo pode interromper a cadeia, devolvendo o resultado sem chamar o próximo

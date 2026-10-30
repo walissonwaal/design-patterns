@@ -1,0 +1,20 @@
+classDiagram
+  class DataImporter {
+    <<abstract>>
+    +import(raw) Report
+    #parse(raw)* Row[]
+    #validate(rows) Row[]
+    #save(rows) void
+    #onFinish(report) void
+  }
+  class CsvImporter {
+    #parse(raw) Row[]
+  }
+  class JsonImporter {
+    #parse(raw) Row[]
+    #validate(rows) Row[]
+    #onFinish(report) void
+  }
+  DataImporter <|-- CsvImporter
+  DataImporter <|-- JsonImporter
+  note for DataImporter "import() é o TEMPLATE METHOD: define o esqueleto fixo<br/>parse() é um passo abstrato, obrigatório nas subclasses<br/>validate() e onFinish() são HOOKS, opcionais"

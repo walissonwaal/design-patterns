@@ -1,0 +1,14 @@
+sequenceDiagram
+  participant C as Cliente
+  participant R as ShapeRegistry
+  participant P as Circle (protótipo)
+  participant N as Circle (clone)
+  Note over R,P: Na inicialização, o registro guarda protótipos já configurados
+  C->>R: create("circulo-vermelho")
+  R->>P: clone()
+  P->>N: copia campos (cópia profunda)
+  N-->>P: novo objeto independente
+  P-->>R: clone
+  R-->>C: clone
+  C->>N: altera x, y ou estilo
+  Note over P,N: O protótipo original permanece intacto

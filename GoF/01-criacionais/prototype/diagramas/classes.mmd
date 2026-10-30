@@ -1,0 +1,24 @@
+classDiagram
+  class Prototype {
+    <<interface>>
+    +clone() Prototype
+  }
+  class ConcretePrototype1 {
+    -campo1
+    +clone() Prototype
+  }
+  class ConcretePrototype2 {
+    -campo2
+    +clone() Prototype
+  }
+  class PrototypeRegistry {
+    -Map~string, Prototype~ items
+    +register(key, p: Prototype)
+    +create(key) Prototype
+  }
+  class Client
+  Prototype <|.. ConcretePrototype1
+  Prototype <|.. ConcretePrototype2
+  PrototypeRegistry o--> Prototype
+  Client --> PrototypeRegistry
+  Client ..> Prototype : clone()

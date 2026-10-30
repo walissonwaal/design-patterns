@@ -1,0 +1,35 @@
+classDiagram
+  class Builder {
+    <<interface>>
+    +reset() Builder
+    +buildStepA() Builder
+    +buildStepB() Builder
+    +build() Product
+  }
+  class ConcreteBuilder1 {
+    -Product1 produto
+    +reset() Builder
+    +buildStepA() Builder
+    +buildStepB() Builder
+    +build() Product1
+  }
+  class ConcreteBuilder2 {
+    -Product2 produto
+    +build() Product2
+  }
+  class Director {
+    -Builder builder
+    +construirVariante1(b: Builder)
+    +construirVariante2(b: Builder)
+  }
+  class Product1
+  class Product2
+  class Client
+
+  Builder <|.. ConcreteBuilder1
+  Builder <|.. ConcreteBuilder2
+  Director o--> Builder
+  ConcreteBuilder1 ..> Product1 : produz
+  ConcreteBuilder2 ..> Product2 : produz
+  Client --> Director
+  Client --> ConcreteBuilder1

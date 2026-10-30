@@ -1,0 +1,15 @@
+sequenceDiagram
+  participant C as Cliente
+  participant R as Directory "projeto"
+  participant S as Directory "src"
+  participant F1 as File "index.ts"
+  participant F2 as File "README.md"
+  C->>R: getSize()
+  R->>S: getSize()
+  S->>F1: getSize()
+  F1-->>S: 4 KB
+  S-->>R: 4 KB
+  R->>F2: getSize()
+  F2-->>R: 2 KB
+  R-->>C: 6 KB (soma recursiva)
+  Note over C,F2: O cliente trata pasta e arquivo da mesma forma

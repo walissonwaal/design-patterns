@@ -1,0 +1,29 @@
+classDiagram
+  class TreeType {
+    -string name
+    -string color
+    -string texture
+    +draw(x, y) string
+  }
+  class TreeTypeFactory {
+    -Map~string, TreeType~ cache$
+    +getTreeType(name, color, texture)$ TreeType
+    +count()$ number
+  }
+  class Tree {
+    -number x
+    -number y
+    -TreeType type
+    +draw() string
+  }
+  class Forest {
+    -Tree[] trees
+    +plantTree(x, y, name, color, texture) void
+    +draw() void
+  }
+  Forest o--> "*" Tree
+  Tree --> TreeType : compartilha
+  TreeTypeFactory ..> TreeType : cria e reutiliza
+  Forest ..> TreeTypeFactory
+  note for TreeType "FLYWEIGHT: estado intrínseco<br/>(compartilhado e imutável)"
+  note for Tree "CONTEXTO: estado extrínseco<br/>(posição, único por árvore)"

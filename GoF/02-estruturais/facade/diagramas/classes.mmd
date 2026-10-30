@@ -1,0 +1,25 @@
+classDiagram
+  direction LR
+  class Client
+  class OrderFacade {
+    +placeOrder(order) OrderResult
+  }
+  class InventoryService {
+    +reserve(sku, qty) boolean
+    +release(sku, qty) void
+  }
+  class PaymentService {
+    +charge(customer, amount) boolean
+  }
+  class ShippingService {
+    +schedule(address, sku) string
+  }
+  class NotificationService {
+    +sendEmail(to, message) void
+  }
+  Client --> OrderFacade
+  OrderFacade --> InventoryService
+  OrderFacade --> PaymentService
+  OrderFacade --> ShippingService
+  OrderFacade --> NotificationService
+  note for OrderFacade "Interface simples para um subsistema complexo"

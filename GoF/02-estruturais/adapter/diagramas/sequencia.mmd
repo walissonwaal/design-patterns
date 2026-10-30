@@ -1,0 +1,10 @@
+sequenceDiagram
+  participant C as Checkout (cliente)
+  participant A as LegacyBankAdapter
+  participant G as LegacyBankGateway (adaptee)
+  C->>A: pay(10.50)
+  Note over A: converte reais para centavos<br/>e monta o XML esperado
+  A->>G: sendTransaction(1050, "<payer>...</payer>")
+  G-->>A: "<response><code>00</code><id>TX-1</id></response>"
+  Note over A: interpreta o XML e<br/>devolve um PaymentResult
+  A-->>C: { success: true, transactionId: "TX-1" }

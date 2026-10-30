@@ -1,0 +1,42 @@
+classDiagram
+  class ShapeVisitor {
+    <<interface>>
+    +visitCircle(c: Circle) R
+    +visitRectangle(r: Rectangle) R
+    +visitGroup(g: Group) R
+  }
+  class AreaVisitor {
+    +visitCircle(c: Circle) number
+    +visitRectangle(r: Rectangle) number
+    +visitGroup(g: Group) number
+  }
+  class JsonVisitor {
+    +visitCircle(c: Circle) object
+    +visitRectangle(r: Rectangle) object
+    +visitGroup(g: Group) object
+  }
+  class Shape {
+    <<interface>>
+    +accept(v: ShapeVisitor) R
+  }
+  class Circle {
+    +number radius
+    +accept(v: ShapeVisitor) R
+  }
+  class Rectangle {
+    +number width
+    +number height
+    +accept(v: ShapeVisitor) R
+  }
+  class Group {
+    +Shape[] children
+    +accept(v: ShapeVisitor) R
+  }
+  ShapeVisitor <|.. AreaVisitor
+  ShapeVisitor <|.. JsonVisitor
+  Shape <|.. Circle
+  Shape <|.. Rectangle
+  Shape <|.. Group
+  Group o--> "*" Shape
+  Shape ..> ShapeVisitor : accept(visitor)
+  note for Circle "accept() chama visitor.visitCircle(this)<br/>(double dispatch)"

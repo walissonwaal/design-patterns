@@ -1,0 +1,14 @@
+sequenceDiagram
+  participant C as Cliente
+  participant P as Playlist
+  participant I as ForwardIterator
+  C->>P: createIterator()
+  P->>I: new ForwardIterator(songs)
+  P-->>C: iterator
+  loop enquanto done for false
+    C->>I: next()
+    I-->>C: { value: música, done: false }
+  end
+  C->>I: next()
+  I-->>C: { value: undefined, done: true }
+  Note over C,I: for...of faz exatamente esse laço por baixo dos panos

@@ -1,0 +1,27 @@
+classDiagram
+  class Component {
+    <<interface>>
+    +execute() string
+  }
+  class ConcreteComponent {
+    +execute() string
+  }
+  class BaseDecorator {
+    <<abstract>>
+    #Component wrappee
+    +execute() string
+  }
+  class ConcreteDecoratorA {
+    +execute() string
+    +extra() void
+  }
+  class ConcreteDecoratorB {
+    +execute() string
+  }
+  class Client
+  Component <|.. ConcreteComponent
+  Component <|.. BaseDecorator
+  BaseDecorator <|-- ConcreteDecoratorA
+  BaseDecorator <|-- ConcreteDecoratorB
+  BaseDecorator o--> Component : wrappee (embrulha)
+  Client --> Component

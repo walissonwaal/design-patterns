@@ -1,0 +1,15 @@
+sequenceDiagram
+  participant D as PriceDisplay
+  participant A as PriceAlert
+  participant S as Stock (subject)
+  D->>S: subscribe(display)
+  A->>S: subscribe(alert)
+  Note over S: setPrice(105)
+  S->>S: muda o estado
+  S->>D: update({ symbol, old: 100, new: 105 })
+  S->>A: update({ symbol, old: 100, new: 105 })
+  A->>A: 105 passou do limite? sim, dispara alerta
+  A->>S: unsubscribe(alert)
+  Note over S: setPrice(90)
+  S->>D: update({ symbol, old: 105, new: 90 })
+  Note over A: não recebe mais nada

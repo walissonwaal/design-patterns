@@ -1,0 +1,11 @@
+sequenceDiagram
+  participant C as Cliente
+  participant K as Checkout (context)
+  participant S as ExpressShipping (strategy)
+  C->>K: new Checkout(new StandardShipping())
+  C->>K: setStrategy(new ExpressShipping())
+  Note over C,K: estratégia trocada em tempo de execução
+  C->>K: total(order)
+  K->>S: calculate(order)
+  S-->>K: frete calculado
+  K-->>C: subtotal + frete
